@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+	</head>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+	<body>
+	<div ng-app="languageApp" ng-cloak ng-controller="mistakeController" class="w3-card-2 w3-margin" style="max-width:800px;">
+		<header class="w3-container w3-light-grey w3-padding-hor-16">
+			<h3>Student Name: Barry Rimell</h3><button id="startSession" ng-click="startSession()" class="w3-btn w3-padding w3-green" ng-disabled="sessionRunning" ng-model="sessionRunning">Start Session</button><button id="endSession" ng-click="endSession()" class="w3-btn w3-padding w3-red" ng-disabled="!sessionRunning" ng-model="sessionRunning">End Session</button>
+		</header>
+		<div class="w3-container w3-light-grey w3-padding-hor-16">
+		    <div class="w3-row w3-margin-top">
+		      <div class="w3-col s10">
+		        <input placeholder="Spoken word..." ng-model="spokenWord" class="w3-input w3-border w3-padding">
+		      </div>
+		      <div class="w3-col s10">
+		        <input placeholder="Correct word..." ng-model="correctWord" class="w3-input w3-border w3-padding">
+		      </div>
+		      <div class="w3-col s2">
+		        <button ng-click="addItem(spokenWord, correctWord, mistakeType)" class="w3-btn w3-padding w3-green" ng-disabled="!sessionRunning" ng-model="sessionRunning">Add</button>
+		      </div>
+			</div>
+		 </div>
+		 <!-- THIS SECTION IS THE PREVIOUSLY LOGGED MISTAKES-->
+		 <div class="w3-container w3-light-grey w3-padding-hor-16">
+		 	<h4>Recent Mistakes</h4>
+		 	<ul class="w3-ul">
+		    	<li ng-repeat="mistake in mistakes | orderBy:'DateAdded'" class="w3-padding-hor-16" ng-model="mistake">Barry said <b>{{mistake.SpokenWord}}</b> but should have said <b>{{mistake.CorrectWord}}</b> {{mistake.SessionOccurences}} times this session.<button ng-click="incrementMistake(mistake)" class="w3-btn w3-padding w3-blue" ng-disabled="!sessionRunning" ng-model="sessionRunning">+1</button></li>
+		  	</ul>
+		</div>
+	</div>
+	<script src="js/languageApp.js"></script>
+	</body>
+</html>
