@@ -5,8 +5,9 @@
 		// Retrieve field from parameters
 		$SpokenWord = $_GET['SpokenWord'];
 		$CorrectWord = $_GET['CorrectWord'];
+		$MistakeType = $_GET['MistakeType'];
 		$CurrentDate = $_GET['CurrentDate'];
-		$query="INSERT INTO mistake (SpokenWord, CorrectWord, AddedDate) VALUES ('$SpokenWord', '$CorrectWord', '$CurrentDate')";
+		$query="INSERT INTO mistake (SpokenWord, CorrectWord, MistakeType, AddedDate) VALUES ('$SpokenWord', '$CorrectWord', '$MistakeType','$CurrentDate')";
 		$result = $conn->query($query) or die($conn->error.__LINE__);
 		 
 		$result = $conn->affected_rows;

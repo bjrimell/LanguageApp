@@ -1,7 +1,7 @@
 <?php
 require_once 'connectToDb.php'; //connect to DB
 
-$result = $conn->query("SELECT SpokenWord, CorrectWord, SessionOccurences, AddedDate FROM Mistake");
+$result = $conn->query("SELECT SpokenWord, CorrectWord, SessionOccurences, AddedDate FROM Mistake Where SessionOccurences>0");
 
 $outp = "";
 while($rs = $result->fetch_array(MYSQLI_ASSOC)) {
