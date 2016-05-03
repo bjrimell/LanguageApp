@@ -2,77 +2,80 @@
 <html>
 	<head>
 		<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
-		    <style>
-        #spokenWord, #mistakeType, #correctWord, #dropzone
-        {float:left; width:280px; height:180px; margin:10px;padding:10px;border:1px solid #aaaaaa;}
-    </style>
+		<style>
+	        #spokenWord, #mistakeType, #correctWord, #dropzoneWrongWord, #dropzoneErrorType, #dropzoneCorrectWord
+	        {float:left; width:300px; height:260px; margin:10px;padding:10px;border:1px solid #aaaaaa;}
+	        section{padding: 2em;}
+			button{padding:0.3em;margin: 0.3em;}
+			#dropzoneWrongWord, #dropzoneErrorType, #dropzoneCorrectWord
+	        {float:left; width:300px; height:80px; margin:10px;padding:10px;border:1px solid #aaaaaa; background-color: white;}
+	        section{padding: 2em;}
+			button{padding:0.3em;margin: 0.3em;}
+    	</style>
 	</head>
 	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 	<body>
 	<div ng-app="languageApp" ng-cloak ng-controller="mistakeController" class="w3-card-2 w3-margin" style="max-width:100%;">
-		<header class="w3-container w3-light-grey w3-padding-hor-16">
+		<header class="w3-container w3-light-blue w3-padding-hor-16">
 			<h3>Student Name: Barry Rimell</h3><button id="startSession" ng-click="startSession()" class="w3-btn w3-padding w3-green" ng-disabled="sessionRunning" ng-model="sessionRunning">Start Session</button><button id="endSession" ng-click="endSession()" class="w3-btn w3-padding w3-red" ng-disabled="!sessionRunning" ng-model="sessionRunning">End Session</button>
 		</header>
-		<div class="w3-container w3-light-grey w3-padding-hor-16">
-		    <div class="w3-row w3-margin-top">
-		      <div class="w3-col s10">
-		        <input placeholder="Spoken word..." ng-model="spokenWord" class="w3-input w3-border w3-padding">
-		      </div>
-		      <div class="w3-col s10">
-		        <input placeholder="Correct word..." ng-model="correctWord" class="w3-input w3-border w3-padding">
-		      </div>
-		      <div class="w3-col s2">
-		        <button ng-click="addItem(spokenWord, correctWord, mistakeType)" class="w3-btn w3-padding w3-green" ng-disabled="!sessionRunning" ng-model="sessionRunning">Add</button>
-		      </div>
-			</div>
-		 </div>
-		<!-- START OF DRAGGABLE ITEMS-->
-		<h4>New Mistake</h4>
 		 <div class="w3-container w3-light-grey w3-padding-hor-16">
 		 	<table>
-		 		<td>
-		 			<p>Spoken Word</p>
-		 			<div id="spokenWord" ondrop="return dropComplete(event)" ondragover="return allowDropStatus(event)">
-			 			<button  class="w3-btn w3-padding w3-blue" draggable="true" ondragstart="return dragInitialize(event)"id="spokenWord_Ser">Ser</button>
-			 			<button  class="w3-btn w3-padding w3-blue" draggable="true" ondragstart="return dragInitialize(event)"id="spokenWord_Estar">Estar</button>
-			 			<button  class="w3-btn w3-padding w3-blue" draggable="true" ondragstart="return dragInitialize(event)"id="spokenWord_Ir">Ir</button>
-			 			<button  class="w3-btn w3-padding w3-blue" draggable="true" ondragstart="return dragInitialize(event)"id="spokenWord_Irse">Irse</button>
-					</div>
-		 		</td>
-		 		<td>
-		 			<p>Error Type</p>
-			 		<div id="mistakeType" ondrop="return dropComplete(event)" ondragover="return allowDropStatus(event)">
-			 			<button  class="w3-btn w3-padding w3-yellow" draggable="true" ondragstart="return dragInitialize(event)"id="wrongWord">Wrong Word</button>
-			 			<button  class="w3-btn w3-padding w3-yellow" draggable="true" ondragstart="return dragInitialize(event)"id="pronunciationMistake">Pronunciation Mistake</button>
-			 			<button  class="w3-btn w3-padding w3-yellow" draggable="true" ondragstart="return dragInitialize(event)"id="conjugation">Conjugation Mistake</button>
-			 			<button  class="w3-btn w3-padding w3-yellow" draggable="true" ondragstart="return dragInitialize(event)"id="tense">Wrong Tense</button>
-			 			<button  class="w3-btn w3-padding w3-yellow" draggable="true" ondragstart="return dragInitialize(event)"id="mode">Wrong Mode</button>
-					</div>
-		 		</td>
-		 		<td>
-		 			<p>Correct Word</p>
-		 			<div id="correctWord" ondrop="return dropComplete(event)" ondragover="return allowDropStatus(event)">
-			 			<button  class="w3-btn w3-padding w3-blue" draggable="true" ondragstart="return dragInitialize(event)"id="correctWord_Ser">Ser</button>
-			 			<button  class="w3-btn w3-padding w3-blue" draggable="true" ondragstart="return dragInitialize(event)"id="correctWord_Estar">Estar</button>
-			 			<button  class="w3-btn w3-padding w3-blue" draggable="true" ondragstart="return dragInitialize(event)"id="correctWord_Ir">Ir</button>
-			 			<button  class="w3-btn w3-padding w3-blue" draggable="true" ondragstart="return dragInitialize(event)"id="correctWord_Irse">Irse</button>
-				</div>
-		 		</td>
+		 		<tr>
+			 		<td>
+			 			<p>Barry said:</p>
+			 			<div id="spokenWord" ondrop="return dropComplete(event)" ondragover="return allowDropStatus(event)">
+			 				<div ng-repeat="spokenWord in spokenWords">
+			 					<button ng-disabled="!sessionRunning" class="w3-btn w3-padding w3-blue" draggable="true" ondragstart="return dragInitialize(event)" id='{{spokenWord.Value}}'>{{spokenWord.Value}}</button>
+			 				</div>
+				 		</div>
+			 		</td>
+			 		<td>
+			 			<p>Which was:</p>
+				 		<div id="mistakeType" ondrop="return dropComplete(event)" ondragover="return allowDropStatus(event)">
+				 			<button ng-disabled="!sessionRunning" class="w3-btn w3-padding w3-yellow" draggable="true" ondragstart="return dragInitialize(event)"id="wrongWord">Wrong Word</button>
+				 			<button ng-disabled="!sessionRunning" class="w3-btn w3-padding w3-yellow" draggable="true" ondragstart="return dragInitialize(event)"id="pronunciationMistake">Pronunciation Mistake</button>
+				 			<button ng-disabled="!sessionRunning" class="w3-btn w3-padding w3-yellow" draggable="true" ondragstart="return dragInitialize(event)"id="conjugation">Conjugation Mistake</button>
+				 			<button ng-disabled="!sessionRunning" class="w3-btn w3-padding w3-yellow" draggable="true" ondragstart="return dragInitialize(event)"id="tense">Wrong Tense</button>
+				 			<button ng-disabled="!sessionRunning" class="w3-btn w3-padding w3-yellow" draggable="true" ondragstart="return dragInitialize(event)"id="mode">Wrong Mode</button>
+						</div>
+			 		</td>
+			 		<td>
+			 			<p>He should have said:</p>
+			 			<div id="correctWord" ondrop="return dropComplete(event)" ondragover="return allowDropStatus(event)">
+			 				<div ng-repeat="correctWord in correctWords">
+			 					<button ng-disabled="!sessionRunning" class="w3-btn w3-padding w3-blue" draggable="true" ondragstart="return dragInitialize(event)"id="{{correctWord.Value}}">{{correctWord.Value}}</button>
+			 				</div>
+				 		</div>
+			 		</td>
+			 	</tr>
+			 	<tr>
+			 		<td>
+			 			<input placeholder="Spoken word..." ng-model="spokenWordTextInput" class="w3-input w3-border w3-padding" style="max-width:300px;" ondrop="return dropComplete(event)" ondragover="return allowDropStatus(event)"><button ng-disabled="!sessionRunning" addbuttonwrongword class="w3-btn w3-padding w3-green">Add</button>
+			 		</td>
+			 		<td>
+			 		</td>
+			 		<td>
+			 			<input placeholder="Correct word..." ng-model="correctWordTextInput" class="w3-input w3-border w3-padding" style="max-width:300px;">
+			 			<button ng-disabled="!sessionRunning" addbuttoncorrectword class="w3-btn w3-padding w3-green">Add</button>
+			 		</td>
+			 	</tr>
+			 	<tr>
+			 		<td>
+						<div id="dropzoneWrongWord" ondrop="return dropComplete(event)" ondragover="return allowDropStatus(event)">
+						</div>
+			 		</td>
+			 		<td>
+						<div id="dropzoneErrorType" ondrop="return dropComplete(event)" ondragover="return allowDropStatus(event)"></div>
+			 		</td>
+			 		<td>
+						<div id="dropzoneCorrectWord" ondrop="return dropComplete(event)" ondragover="return allowDropStatus(event)"></div>
+			 		</td>
+			 	</tr>
 		 	</table>
-				<div id="dropzone" ondrop="return dropComplete(event)" ondragover="return allowDropStatus(event)" style="max-width:100%;">
 				</div>
-				<script type="text/javascript">
-					var ancestor = document.getElementById('div1'),
-					descendents = ancestor.getElementsByTagName('*');
-				</script>
-				<button class="w3-btn w3-padding w3-green" ng-click="addDraggable()">Submit</button>
-		<!-- END OF DRAGGABLE ITEMS -->
-		<!-- START OF COMMON MISTAKES-->
-		<br><br><br><br><br><br><br><br>
-		<h4>Recent Mistakes</h4>
- 		 	<ul class="w3-ul" style="max-width:800px">
-		    	<li ng-repeat="mistake in mistakes | orderBy:'DateAdded'" class="w3-padding-hor-16" ng-model="mistake">Barry said <b>{{mistake.SpokenWord}}</b> but should have said <b>{{mistake.CorrectWord}}</b> {{mistake.SessionOccurences}} times this session.<button ng-click="incrementMistake(mistake)" class="w3-btn w3-padding w3-blue" ng-disabled="!sessionRunning" ng-model="sessionRunning">+1</button></li>
-		<!-- END OF COMMON MISTAKES-->
+				<button ng-disabled="!sessionRunning" class="w3-btn w3-padding w3-green" ng-click="addMistake(event)" style="width:90%;">Submit</button>
+		<iframe frameborder="1" width="90%" height="345" src="recentMistakes.html"></iframe>
 	</div>
 	<script src="js/dragndrop.js"></script>
 	<script src="js/languageApp.js"></script>

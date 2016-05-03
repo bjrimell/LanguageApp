@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+		<style>
+	        #spokenWord, #mistakeType, #correctWord, #dropzoneWrongWord, #dropzoneErrorType, #dropzoneCorrectWord
+	        {float:left; width:300px; height:260px; margin:10px;padding:10px;border:1px solid #aaaaaa;}
+	        section{padding: 2em;}
+			button{padding:0.3em;margin: 0.3em;}
+			#dropzoneWrongWord, #dropzoneErrorType, #dropzoneCorrectWord
+	        {float:left; width:300px; height:80px; margin:10px;padding:10px;border:1px solid #aaaaaa;}
+	        section{padding: 2em;}
+			button{padding:0.3em;margin: 0.3em;}
+    	</style>
+	</head>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+	<body>
+		<div ng-app="languageApp" ng-cloak ng-controller="mistakeController" class="w3-card-2 w3-margin" style="max-width:100%;">
+		<h4>Recent Mistakes</h4>
+ 		 	<ul class="w3-ul" style="max-width:800px">
+		    	<li ng-repeat="mistake in mistakes | orderBy:'DateAdded'" class="w3-padding-hor-16" ng-model="mistake">Barry said <b>{{mistake.SpokenWord}}</b> but should have said <b>{{mistake.CorrectWord}}</b> {{mistake.SessionOccurences}} times this session.<button ng-click="incrementMistake(mistake)" class="w3-btn w3-padding w3-blue" ng-disabled="!$scope.sessionRunning" ng-model="sessionRunning">+1</button></li>
+		</div>
+		<script src="js/languageApp.js"></script>
+	</body>
+</html>
